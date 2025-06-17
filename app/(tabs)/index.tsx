@@ -7,6 +7,7 @@ import useFetch from "@/services/useFetch";
 import { Link, useRouter, withLayoutContext } from "expo-router";
 import { Text, View, Image, ScrollView, ActivityIndicator, FlatList } from "react-native";
 import {getTrendingMovies} from "@/services/appwrite";
+import TrendingCard from "@/components/TrendingCard";
 
 export default function Index() {
   const router = useRouter()
@@ -52,10 +53,13 @@ export default function Index() {
                   </View>
               )}
               <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  ItemSeparatorComponent={() => <View className='w-4' />}
                   className='mb-4 mt-3'
                   data={trendingMovies}
                   renderItem={({item, index}) => (
-                  <Text className='text-white text-sm'>{item.title}</Text>
+                  <TrendingCard movie={item} index={index} />
               )}
               keyExtractor={(item) => item.movie_id.toString()}
               />
